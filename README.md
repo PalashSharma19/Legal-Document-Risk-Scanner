@@ -1,69 +1,95 @@
 # Legal Document Risk Scanner
 
-Rule-based legal clause risk scanner for pasted text and uploaded PDFs.
+A full-stack, rule-based legal clause risk scanner that analyzes pasted text and uploaded PDFs to identify potential legal risks. This tool operates without a database and processes everything completely statelessly.
 
-## Stack
+## 🌟 Features
 
-- Frontend: React + Vite + Tailwind + Framer Motion
-- Backend: Node.js + Express + Multer + pdf-parse
-- State: Stateless request/response scanning (no database)
+- **Text & PDF Scanning:** Paste plain text or upload PDF contracts for instant risk analysis.
+- **Risk Scoring:** Analyzes legal clauses and assigns a risk score and label to highlight problematic terms.
+- **Stateless Architecture:** No data is stored or persisted, ensuring your sensitive legal documents remain completely private.
+- **Modern UI:** Built with React, Tailwind CSS, and Framer Motion for a smooth, responsive user experience.
+- **Fast Backend Engine:** Node.js powered backend for parsing and scanning documents efficiently.
 
-## Repository Layout
+## 🛠️ Tech Stack
 
-- client: frontend app
-- server: backend API and inference engine
+- **Frontend:** React + Vite + Tailwind CSS + Framer Motion
+- **Backend:** Node.js + Express + Multer (File Uploads) + pdf-parse
+- **State Management:** Stateless request/response (No database layer)
 
-## Setup
+## 📋 Prerequisites
 
-1. Backend dependencies
-- `cd server`
-- `npm install`
+Before running this project, make sure you have the following installed:
+- [Node.js](https://nodejs.org/en/) (v16.0.0 or higher recommended)
+- npm (Node Package Manager)
 
-2. Frontend dependencies
-- `cd ../client`
-- `npm install`
+## ⚙️ Installation & Setup
 
-## Run
+1. **Clone the repository:**
+   ```bash
+   git clone <your-repo-url>
+   cd "AI project"
+   ```
 
-1. Start backend
-- `cd server`
-- `npm run dev`
+2. **Backend Setup:**
+   ```bash
+   cd server
+   npm install
+   cp .env.example .env  # Update PORT if needed
+   ```
 
-2. Start frontend
-- `cd client`
-- `npm run dev`
+3. **Frontend Setup:**
+   ```bash
+   cd ../client
+   npm install
+   cp .env.example .env  # Update VITE_API_URL if needed
+   ```
 
-Default URLs:
+## 🚀 How to Run
+
+To run the application locally, you will need two terminal windows.
+
+**Terminal 1: Start the Backend Server**
+```bash
+cd server
+npm run dev
+```
+
+**Terminal 2: Start the Frontend Client**
+```bash
+cd client
+npm run dev
+```
+
+**Default URLs:**
 - Frontend: `http://localhost:5173`
 - Backend: `http://localhost:5000`
 
-Note: If port 5173 is busy, Vite auto-selects the next available port.
+*(Note: If port 5173 is busy, Vite will automatically select the next available port).*
 
-## Environment Variables
+## 🔌 API Reference
 
-- `server/.env`
-  - `PORT=5000`
-- `client/.env`
-  - `VITE_API_URL=http://localhost:5000`
+### 1. Scan Plain Text
+- **Endpoint:** `POST /api/scan`
+- **Body:** `{ "text": "Your legal text here..." }`
+- **Response:** `{ "findings": [...], "riskScore": 45, "riskLabel": "Moderate Risk", "color": "yellow", "clauseCount": 10 }`
 
-## Backend API
+### 2. Scan PDF Document
+- **Endpoint:** `POST /api/scan/pdf`
+- **Body:** `multipart/form-data` with a `file` field containing the PDF.
+- **Response:** Same format as the `/api/scan` endpoint.
 
-1. `POST /api/scan`
-- Body: `{ "text": "..." }`
-- Response: `{ findings, riskScore, riskLabel, color, clauseCount }`
+## 🚧 Known Limitations & Constraints
 
-2. `POST /api/scan/pdf`
-- Body: multipart form-data with `file`
-- Response: same as `/api/scan`
+- **No Persistence:** Scan history is not saved.
+- **Rule-Based Engine:** The scanner relies on a predefined set of rules in the knowledge base, which may not catch all nuanced legal risks. It does not use Machine Learning inference.
+- **No User Accounts:** There is no authentication or authorization layer.
 
-## Quality Checks
+## 🔮 Future Improvements
 
-- Frontend lint: `cd client && npm run lint`
-- Frontend build: `cd client && npm run build`
-- Backend start smoke: `cd server && npm run start`
+- Integrate an AI/LLM model for deeper semantic understanding of clauses.
+- Add user accounts to save document history securely.
+- Export scan results to a PDF report.
 
-## Scope Constraints
+## 📄 License
 
-- No database layer
-- No authentication or user accounts
-- No persistence of scan history
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

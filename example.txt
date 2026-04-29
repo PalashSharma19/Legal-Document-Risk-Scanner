@@ -1,3 +1,0 @@
-This is an example file.
-It demonstrates file operations using system calls.
-Linux system programming in C
